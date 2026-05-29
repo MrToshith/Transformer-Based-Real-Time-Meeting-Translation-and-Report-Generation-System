@@ -1,18 +1,17 @@
 from stt.whisper_engine import WhisperEngine
 from translation.translator import Translator
+from storage.transcript_store import TranscriptStore
 
 engine = WhisperEngine()
 audio_path = "data/audio/meeting-clip1.wav"
-result = engine.transcribe(audio_path)
+transcript = engine.transcribe(audio_path)
+transcript_text = transcript["text"]
 
-print(result.keys())
-print()
-print(result["text"])
-
-print()
+store = TranscriptStore()
+store.save_text("transcript.txt", transcript_text)
 
 translator = Translator()
-translated = translator.translate(result["text"])
+translated = translator.translate(transcript["text"])
+store.save_text("hindi_translation.txt", translated)
 
-print("\nHindi:\n")
-print(translated)
+print("Done")
