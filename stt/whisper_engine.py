@@ -1,6 +1,6 @@
 import whisper 
 
-class WhisperEngine():
+class WhisperEngine:
     def __init__(self):
         self.model = whisper.load_model("base")
 
